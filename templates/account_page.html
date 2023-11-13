@@ -1,0 +1,361 @@
+{% load static %}
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <title>Main_page</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200&display=swap');
+    * {
+      letter-spacing: 2px;
+      font-weight: 100;
+    }
+    body {
+      background-color: #4a4a4a;
+      height: auto;
+    }
+    .motoex-logo {
+      cursor: pointer;
+      width: 150px;
+      margin-left: 4vw;
+    }
+    .navbar {
+       background: #3a3939; 
+    } 
+    .navbar-toggler-icon {
+      background-image: url("{% static 'toggler-icon.svg' %}");
+      color: #ff6600;
+    }
+    .navbar-nav {
+      margin-left: auto;
+      margin-top: 2vh;
+    }
+    .nav-item {
+      display: block;
+      text-align: center;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+    .nav-link{
+      padding-left: 3vw;
+      padding-right: 3vw;
+    }
+    .link-name {
+      padding: 0.5vh 4vw 0.5vh 4vw;
+      background: #ff6600;
+      color: white;
+      border-radius: 15px;
+      font-size: 22px;
+    }
+
+    .title-1 {
+      font-size: 5vh;
+      color: white;
+    }
+    .company-info {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: 5vw;
+      margin-right: 5vw;
+      background: #3a3939;
+      border-radius: 15px ;
+      height: auto;
+    }
+    .info-placed {
+      margin: 1.5vh 1.2vw 1.5vh 1.2vw;
+      background: #2d2d2d;
+      border-radius: 15px;
+    }
+    .info {
+      color: white;
+      font-size: 3vh;
+    }
+    .footer {
+      background: #2d2d2d;
+    }
+    .col {
+      color: white;
+    }
+    h4 {
+      text-align: center;
+    }
+    .contact-data {
+      list-style-type: none;
+    }
+    
+    .bx {
+      width: auto;
+    }
+    .follow-icon::before {  
+      height: auto;
+      width: 5vh;
+    }
+    .footer-info {
+      text-align: justify;
+      vertical-align: baseline;
+      margin-top: auto;
+      margin-bottom: auto;
+      margin-left: 7px;
+    }
+    .footer-list-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+    .social-media-link {
+      width: min-content;
+      margin-right: 15px;
+    }
+    /* width */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: #2d2d2d; 
+    }
+ 
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: #ff6600; 
+    }
+    .link-name {
+      transition: all 0.15s ease-in-out;
+    }
+    .link-name:hover {
+      -webkit-box-shadow: 0px 0px 23px -5px rgba(0, 0, 0, 1);
+      -moz-box-shadow: 0px 0px 23px -5px rgba(0, 0, 0, 1);
+      box-shadow: 0px 0px 23px -5px rgba(0, 0, 0, 1);
+    }
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #b44901; 
+    } 
+    .footer-info, .review-text {
+      text-align: justify;
+    }
+    .contact-data {
+      padding-left: 5vw;
+      padding-right: 5vw;
+    }
+    .rev-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: 10vw;
+      margin-right: 10vw;
+      background: #3a3939;
+      border-radius: 15px ;
+      height: auto;
+      margin-bottom: 3vh;
+    }
+    .review {
+      margin: 1.5vh 1.2vw 1.5vh 1.2vw;
+      background: #2d2d2d;
+      border-radius: 15px;
+      color: white;
+    }
+    .vehicle-preview-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5vh 1.2vw 1.5vh 1.2vw;
+    } 
+    #vehicle-image {
+      border-radius: 15px;
+      width: 100%;
+      object-fit: cover; 
+      border-radius: 15px;
+    }
+    .info-right {
+      padding: 3%;
+    }
+    .vehicle-info {
+      font-size: 1.3rem;
+    }
+    .vehicle-tth {
+      font-size: 1.3rem;
+    }
+  </style>
+</head>
+<body>
+    <div class="navbar sticky-top navbar-expand-lg">
+      <div class="container-fluid ">
+        <a 
+        href="{%url 'main' %}"
+        class="navbar-brand mb-0">
+          <img src="{% static 'motoex-logo-true.svg' %}" class="motoex-logo"/>
+        </a>
+
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+        <div class="nav-buttons navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a href="{% url 'catalog' %}" class="nav-link"><p class="link-name">CATALOG</p></a>
+            </li>
+            <li class="nav-item active">
+              <a href="{% url 'reviews' %}" class="nav-link"><p class="link-name">REVIEWS</p></a>
+              <li class="nav-item active">
+                <a href="{% url 'register' %}" class="nav-link"><p class="link-name">ACCOUNT</p></a>
+              </li>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="how-works mt-4">
+      <div class="container-fluid text-center">
+        <p class="title-1">FAVOURITE VEHICLES</p>
+      </div>
+    </div>
+
+    <div class="rev-container">
+      <div class="container-fluid review">
+        <div class="row">
+          <div class="col-xl-5">
+            <div class="vehicle-preview-image">
+              <a href="#car"><img src="https://images.unsplash.com/photo-1566008885218-90abf9200ddb?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="vehicle-preview-image" id="vehicle-image"></a>
+            </div>
+          </div>
+          <div class="col-xl-7">
+            <div class="row top">
+              <span class="vehicle-name" style="text-align: center; font-size: 2rem; padding-bottom: 2.5rem;">VEHICLE NAME</span>
+            </div>
+            <div class="row bottom">
+              <div class="col-md-6">
+
+                <div class="row info-row">
+                  <div class="col-sm-6 d-flex info-right">
+                    <i class='bx bxs-cog bx-md' style="color: #ff6600;"></i>
+                    <p class="vehicle-info">Engine</p>
+                  </div>
+                  <div class="col-sm-6 d-flex info-right">
+                    <p class="vehicle-tth">1.9 Tdi</p>
+                  </div>
+                </div>
+
+                <div class="row info-row">
+                  <div class="col-sm-6 d-flex info-right">
+                    <i class='bx bxs-gas-pump bx-md' style="color: #ff6600;"></i>
+                    <p class="vehicle-info">Fuel type</p>
+                  </div>
+                  <div class="col-sm-6 d-flex info-right">
+                    <p class="vehicle-tth">Diesel</p>
+                  </div>
+                </div>
+                
+                <div class="row info-row">
+                  <div class="col-sm-6 d-flex info-right">
+                    <i class='bx bx-sitemap bx-md' style="color: #ff6600;"></i>
+                    <p class="vehicle-info">Transmission</p>
+                  </div>
+                  <div class="col-sm-6 d-flex info-right">
+                    <p class="vehicle-tth">Manual</p>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-md-6">
+
+                <div class="row info-row">
+                  <div class="col-sm-6 d-flex info-right">
+                    <i class='bx bx-calendar bx-md' style="color: #ff6600;"></i>
+                    <p class="vehicle-info">Year of production</p>
+                  </div>
+                  <div class="col-sm-6 d-flex info-right">
+                    <p class="vehicle-tth">1999</p>
+                  </div>
+                </div>
+
+                <div class="row info-row">
+                  <div class="col-sm-6 d-flex info-right">
+                    <i class='bx bx-run bx-md' style="color: #ff6600;"></i>
+                    <p class="vehicle-info">Mileage</p>
+                  </div>
+                  <div class="col-sm-6 d-flex info-right">
+                    <p class="vehicle-tth">228000 km</p>
+                  </div>
+                </div>
+
+                <div class="row info-row">
+                  <div class="col-sm-6 d-flex info-right">
+                    <i class='bx bxs-map-pin bx-md' style="color: #ff6600;"></i>
+                    <p class="vehicle-info">From Slovakia</p>
+                  </div>
+                  <div class="col-sm-6 d-flex info-right">
+                    <p class="vehicle-tth">Currently in Brest</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <div class="container-fluid footer">
+      <div class="row pt-2">
+        <div class="col left">
+          <h4 class="footer-left-H">
+            <span class="devided-text" style="color:white;">ABOUT</span>
+            <span class="devided-text" style="color:#ff6600">US</span>
+          </h4>
+          <p class="footer-info left">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere ad rerum aut earum corporis. Qui quia, magni illo sequi odit provident perferendis minima ullam autem. Vitae quo nisi dignissimos amet.
+          </p>
+        </div>
+        <div class="col center">
+          <h4 class="footer-left-H">
+            <span class="devided-text" style="color:white;">CONTACT</span>
+            <span class="devided-text" style="color:#ff6600">US</span>
+          </h4>
+          <ul class="contact-data row">
+            <li class="d-flex footer-list-item">
+              <i class='bx bx-envelope bx-md footer-list-item'></i>
+              <p class="footer-info center">example@gmail.com</p>
+            </li>
+            <li class="d-flex footer-list-item">
+              <i class='bx bx-phone bx-md footer-list-item'></i>
+              <p class="footer-info center">+48 784 213 831</p>
+            </li>
+            <li class="d-flex footer-list-item">
+              <i class='bx bx-home-alt bx-md footer-list-item'></i>
+              <p class="footer-info center">Warsaw, Poland, Street, 00-000 </p>
+            </li>   
+          </ul>
+        </div>
+        <div class="col right">
+          <h4 class="footer-left-H">
+            <span class="devided-text" style="color:white">FOLLOW</span>
+            <span class="devided-text" style="color:#ff6600">US</span>
+          </h4>
+          <div class="row d-flex flex-row justify-content-center text-center">
+            <a href="#" class="social-media-link"><i class='bx bxl-facebook-square bx-lg' style="color: white;"></i></a>
+            <a href="#" class="social-media-link"><i class='bx bxl-instagram-alt bx-lg' style="color: white;"></i></a>
+            <a href="#" class="social-media-link"><i class='bx bxl-tiktok bx-lg' style="color: white;"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

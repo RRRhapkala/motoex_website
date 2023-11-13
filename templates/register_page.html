@@ -1,0 +1,167 @@
+{% load static %}
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200&display=swap');
+  
+    * {
+      font-family: 'Outfit', sans-serif;
+    }
+  
+    body {
+      background: #4a4a4a;
+      margin: 0;
+      padding: 0;
+    }
+  
+    .container {
+      margin-top: 50vh;
+      margin: auto;
+      width: 80%;
+      max-width: 600px; /* Adjust max-width as needed */
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+  
+    .top-title {
+      font-size: 2rem;
+      color: #fff;
+    }
+  
+    .login-title {
+      font-size: 2rem;
+      color: #fff;
+      margin-top: 10px;
+    }
+  
+    header {
+      padding: 10px 0 20px 0;
+    }
+  
+    .input-field {
+      height: 40px;
+      margin-bottom: 20px;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+    }
+  
+    .input {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: none;
+      color: white;
+      font-size: 1rem;
+    }
+  
+    ::-webkit-input-placeholder {
+      color: #fff;
+      font-size: 1rem;
+      text-align: center;
+    }
+    
+    .login-with-google {
+      border: none;
+      border-radius: 15px;
+      font-size: 1rem;
+      width: auto;
+      height: 40px;
+      outline: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .submit {
+      border: none;
+      border-radius: 15px;
+      font-size: 1rem;
+      width: 100%;
+      height: 40px;
+      outline: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+  
+    .submit {
+      background: #ff6600;
+      color: white;
+      margin-top: 10px;
+    }
+  
+    .submit:hover,
+    .login-with-google:hover {
+      box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.3);
+    }
+  
+    .bottom {
+      display: flex;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: #fff;
+      margin-top: 10px;
+    }
+    .que:hover {
+      color: #ff6600;
+    }
+    .que {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      padding-bottom: 4rem;
+      transition: 0.3s;
+    }
+    .input-button {
+      padding-top: 0.5rem;
+    }
+  </style>  
+</head>
+<body>
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  <div class="box">
+    <div class="container">
+
+      <div class="top-header">
+        <span class="top-title">Don't have an account?</span>
+        <header class="login-title">Sign up</header>
+      </div>
+      <form method="POST" action="">
+        {% csrf_token %}
+      <div class="input-field">
+        <input type="text" class="input" placeholder="Username" required>
+      </div>
+      <div class="input-field">
+        <input type="password" class="input" placeholder="Password" required>
+      </div>
+
+      <div class="input-button">
+        <input type="submit" class="submit" style="color: white;" value="Login">
+      </div>
+
+      <div class="bottom">
+        <div class="right">
+          <a class="que" href="{% url 'login' %}">Already have an account?</a>
+        </div>
+      </div>
+
+      <div class="input-button">
+        <button class="login-with-google">Login with Google</button>
+      </div>
+    </div>
+    </form>
+  </div>
+</body>
+</html>
