@@ -129,17 +129,20 @@
         <span class="top-title">Have an account?</span>
         <header class="login-title">Login</header>
       </div>
+      <form method="post" action="">
+        {% csrf_token %}
+        <div class="input-field">
+          <input type="text" name="username" class="input" placeholder="Username" required>
+        </div>
+        <div class="input-field">
+          <input type="password" name="password" class="input" placeholder="Password" required>
+        </div>
 
-      <div class="input-field">
-        <input type="text" class="input" placeholder="Username" required>
-      </div>
-      <div class="input-field">
-        <input type="password" class="input" placeholder="Password" required>
-      </div>
+        <div class="input-button">
+          <input type="submit" class="submit" style="color: white;" value="Login">
+        </div>
+      </form>
 
-      <div class="input-button">
-        <input type="submit" class="submit" style="color: white;" value="Login">
-      </div>
 
       <div class="bottom">
         <div class="right">

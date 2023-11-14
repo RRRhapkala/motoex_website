@@ -5,16 +5,16 @@ class VehicleForm(ModelForm):
     class Meta:
         model = Vehicle
         fields = [
-            'name'
-            'description'
-            'lon'
-            'lat'
-            'type'
-            'engine'
-            'fuel_type'
-            'year_of_prod'
-            'mileage'
-            'hometown'
-            'currently_in'
+            'name',
+            'description',
+            'lon',
+            'lat',
+            'type',
+            'engine',
+            'fuel_type',
+            'year_of_prod',
+            'mileage',
+            'hometown',
+            'currently_in',
             'users'
         ]

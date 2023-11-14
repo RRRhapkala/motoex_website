@@ -141,10 +141,10 @@
       <form method="POST" action="">
         {% csrf_token %}
       <div class="input-field">
-        <input type="text" class="input" placeholder="Username" required>
+        <input type="text" name="username" class="input" placeholder="Username" required>
       </div>
       <div class="input-field">
-        <input type="password" class="input" placeholder="Password" required>
+        <input type="password" name="password" class="input" placeholder="Password" required>
       </div>
 
       <div class="input-button">
@@ -160,7 +160,7 @@
       <div class="input-button">
         <button class="login-with-google">Login with Google</button>
       </div>
-    </div>
+      </div>
     </form>
   </div>
 </body>
