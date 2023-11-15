@@ -45,12 +45,15 @@
   
     .input-field {
       height: 40px;
-      margin-bottom: 20px;
       border-radius: 15px;
       background: rgba(255, 255, 255, 0.1);
       display: flex;
       align-items: center;
       padding: 0 10px;
+    }
+    
+    .email {
+      margin-bottom: 20px;
     }
   
     .input {
@@ -77,6 +80,8 @@
       outline: none;
       cursor: pointer;
       transition: 0.3s;
+      background-color: #3a3939;
+      color: white;
     }
 
     .submit {
@@ -108,7 +113,9 @@
       color: #fff;
       margin-top: 10px;
     }
-  
+    .que:hover {
+      color: #ff6600;
+    }
     .que {
       color: white;
       text-decoration: none;
@@ -131,7 +138,7 @@
       </div>
       <form method="post" action="">
         {% csrf_token %}
-        <div class="input-field">
+        <div class="input-field email">
           <input type="text" name="username" class="input" placeholder="Username" required>
         </div>
         <div class="input-field">

@@ -45,7 +45,6 @@
   
     .input-field {
       height: 40px;
-      margin-bottom: 20px;
       border-radius: 15px;
       background: rgba(255, 255, 255, 0.1);
       display: flex;
@@ -77,6 +76,11 @@
       outline: none;
       cursor: pointer;
       transition: 0.3s;
+      background-color: #3a3939;
+      color: white;
+    }
+    .email {
+      margin-bottom: 20px;
     }
 
     .submit {
@@ -140,7 +144,7 @@
       </div>
       <form method="POST" action="">
         {% csrf_token %}
-      <div class="input-field">
+      <div class="input-field email">
         <input type="text" name="username" class="input" placeholder="Username" required>
       </div>
       <div class="input-field">
