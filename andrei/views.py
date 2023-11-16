@@ -58,7 +58,11 @@ def catalog_page(request):
     return render(request, 'catalog_page.html', {})
 
 def add_vehicle_page(request):
-    return render(request, 'add_vehicle_page', {})
+    return render(request, 'add_vehicle_page.html', {})
+
+def signup_redirect(request):
+    messages.error(request, "Something wrong here, it may be that you already have account!")
+    return redirect("main")
 
 def toggle_like(request):
     return render(request)

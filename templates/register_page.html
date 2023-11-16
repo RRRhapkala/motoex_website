@@ -1,4 +1,5 @@
 {% load static %}
+{% load socialaccount %}
 
 <html lang="en">
 <head>
@@ -68,12 +69,18 @@
     }
     
     .login-with-google {
+      display: flex;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0px 20px 0px 20px;
+      justify-content: center;
+      align-items: center; /* Измените отступы, если требуется другой размер */
       border: none;
       border-radius: 15px;
       font-size: 1rem;
-      width: auto;
+      width: 30%;
       height: 40px;
-      outline: none;
+      text-decoration: none;
       cursor: pointer;
       transition: 0.3s;
       background-color: #3a3939;
@@ -103,6 +110,7 @@
     .submit:hover,
     .login-with-google:hover {
       box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.3);
+      border: 1px solid #ff6600;
     }
   
     .bottom {
@@ -119,12 +127,17 @@
       color: white;
       text-decoration: none;
       font-size: 1rem;
-      padding-bottom: 4rem;
-      transition: 0.3s;
+      margin-bottom: 4rem;
+      transition: 0.1s;
     }
     .input-button {
       padding-top: 0.5rem;
     }
+    .gogl-auth {
+      text-decoration: none;
+      color: white;
+    }
+
   </style>  
 </head>
 <body>
@@ -160,16 +173,18 @@
           <a class="que" href="{% url 'login' %}">Already have an account?</a>
         </div>
       </div>
+
       {% load socialaccount %}
       {% block content %}
       <div class="input-button">
-          <button class="login-with-google">
-            <a href="{% provider_login_url 'google' %}?next=/main">
-              Login with Google
-            </a>
-          </button>
+        
+          <a class="login-with-google gogl-auth" href="{% provider_login_url 'google' %}?next=/main">
+            Login with Google
+          </a>
+      
       </div>
         {% endblock content %}
+
       </div>
     </form>
   </div>
