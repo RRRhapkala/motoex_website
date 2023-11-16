@@ -160,10 +160,16 @@
           <a class="que" href="{% url 'login' %}">Already have an account?</a>
         </div>
       </div>
-
+      {% load socialaccount %}
+      {% block content %}
       <div class="input-button">
-        <button class="login-with-google">Login with Google</button>
+          <button class="login-with-google">
+            <a href="{% provider_login_url 'google' %}?next=/main">
+              Login with Google
+            </a>
+          </button>
       </div>
+        {% endblock content %}
       </div>
     </form>
   </div>

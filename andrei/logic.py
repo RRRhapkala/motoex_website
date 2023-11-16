@@ -1,7 +1,8 @@
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import User
 from django.http import request
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from andrei.models import Vehicle
 from andrei.forms import VehicleForm
 from andrei.exceptions import *
@@ -28,12 +29,29 @@ def login_user(request):
 
 
 def add_vehicle(request):
-    vehicle_form = VehicleForm(request.POST)
-    if vehicle_form.is_valid():
-        vehicle_form.save()
-    else:
-        raise InvalidVehicleFormException(vehicle_form.errors)
+    def user_can_add_vehicle(user):
+        allowed_users = ['']
+        return user.username in allowed_users
 
+    if not user_can_add_vehicle(request.user):
+        return render(request, 'main_page.html')
+
+    if request.method == 'POST':
+        form = VehicleForm(request.POST, request.FILES)
+        if form.is_valid():
+            vehicle = form.save(commit=False)
+            vehicle.users.add(request.user)
+            vehicle.save()
+
+            if 'main_image' in request.FILES:
+                vehicle.main_image = request.FILES['main_image']
+                vehicle.save()
+
+            if 'additional_images' in request.FILES:
+                for image in request.FILES.getlist('additional_images'):
+                    vehicle.additional_images.create(image=image)
+
+            return redirect('account')
 
 # def toggle_like(vehicle_id, user):
 #     vehicle_id = request.POST.get("vehicle_id")

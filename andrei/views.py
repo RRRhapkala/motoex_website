@@ -51,8 +51,14 @@ def reviews_page(request):
 def choose_type_page(request):
     return render(request, 'choose_v_type.html', {})
 
+def account_page(request):
+    return render(request, 'account_page.html', {})
+
 def catalog_page(request):
     return render(request, 'catalog_page.html', {})
+
+def add_vehicle_page(request):
+    return render(request, 'add_vehicle_page', {})
 
 def toggle_like(request):
     return render(request)
