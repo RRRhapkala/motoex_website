@@ -239,7 +239,7 @@
 <body>
     <div class="navbar sticky-top navbar-expand-lg">
       <div class="container-fluid ">
-<!--        <span></span> zahujarit v knopku account -->
+
         <a
         href="{%url 'main' %}"
         class="navbar-brand mb-0">
@@ -265,7 +265,7 @@
             <li class="nav-item active">
               <a href="{% url 'reviews' %}" class="nav-link"><p class="link-name">REVIEWS</p></a>
               <li class="nav-item active">
-                <a href="{% url 'register' %}" class="nav-link"><p class="link-name">{% if user.is_authenticated %} {{ request.user.username }} {% else %} LOGIN {% endif %}</p></a>
+                <a href="{% if request.user.is_authenticated %} {% url 'account' %} {% else %} {% url 'login' %} {% endif %}" class="nav-link"><p class="link-name">{% if user.is_authenticated %} {{ request.user.username }} {% else %} LOGIN {% endif %}</p></a>
               </li>
             </li>
           </ul>
