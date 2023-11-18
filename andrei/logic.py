@@ -30,17 +30,16 @@ def login_user(request):
 
 def add_vehicle(request):
     def user_can_add_vehicle(user):
-        allowed_users = ['']
+        allowed_users = ['ggoutsiderr']
         return user.username in allowed_users
 
     if not user_can_add_vehicle(request.user):
-        return render(request, 'main_page.html')
+        raise UCantAddVehicle('Fuck off bozo')
 
     if request.method == 'POST':
         form = VehicleForm(request.POST, request.FILES)
         if form.is_valid():
             vehicle = form.save(commit=False)
-            vehicle.users.add(request.user)
             vehicle.save()
 
             if 'main_image' in request.FILES:

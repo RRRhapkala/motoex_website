@@ -4,3 +4,7 @@ class InvalidCridentialsException(Exception):
 
 class InvalidVehicleFormException(Exception):
     pass
+
+
+class UCantAddVehicle(Exception):
+    pass

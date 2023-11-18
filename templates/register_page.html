@@ -110,7 +110,7 @@
     .submit:hover,
     .login-with-google:hover {
       box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.3);
-      border: 1px solid #ff6600;
+      outline: 1px solid #ff6600;
     }
   
     .bottom {
@@ -155,7 +155,7 @@
         <span class="top-title">Don't have an account?</span>
         <header class="login-title">Sign up</header>
       </div>
-      <form method="POST" action="">
+    <form method="POST" action="">
         {% csrf_token %}
       <div class="input-field email">
         <input type="text" name="username" class="input" placeholder="Username" required>
@@ -167,6 +167,7 @@
       <div class="input-button">
         <input type="submit" class="submit" style="color: white;" value="Login">
       </div>
+    </form>
 
       <div class="bottom">
         <div class="right">
@@ -174,19 +175,20 @@
         </div>
       </div>
 
+    
       {% load socialaccount %}
       {% block content %}
       <div class="input-button">
+
+        <form method="post" action="{% provider_login_url 'google' %}?next=/">
+          {% csrf_token %}
+          <input type="submit" class="login-with-google" value="Login with Google"> 
+        </form>
         
-          <a class="login-with-google gogl-auth" href="{% provider_login_url 'google' %}?next=/main">
-            Login with Google
-          </a>
-      
       </div>
         {% endblock content %}
 
       </div>
-    </form>
   </div>
 </body>
 </html>

@@ -16,6 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 from andrei.views import *
 
@@ -32,5 +35,6 @@ urlpatterns = [
     path('add_vehicle/', add_vehicle_page, name='add_vehicle'),
     path('toggle_like/', toggle_like, name='toggle_like'),
     path('', include("allauth.urls")),
-    path('social/signup/', signup_redirect, name='signup_redirect')
-]
+    path('social/signup/', signup_redirect, name='signup_redirect'),
+    path('accounts/profile/', signup_redirect, name='profile')
+]   + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

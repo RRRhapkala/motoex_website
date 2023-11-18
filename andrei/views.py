@@ -58,6 +58,11 @@ def catalog_page(request):
     return render(request, 'catalog_page.html', {})
 
 def add_vehicle_page(request):
+    try:
+        add_vehicle(request)
+    except UCantAddVehicle as e:
+        messages.error(request, e)
+        return redirect('main')
     return render(request, 'add_vehicle_page.html', {})
 
 def signup_redirect(request):

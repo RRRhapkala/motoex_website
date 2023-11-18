@@ -15,6 +15,5 @@ class VehicleForm(ModelForm):
             'year_of_prod',
             'mileage',
             'hometown',
-            'currently_in',
-            'users'
+            'currently_in'
         ]

@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 
 
 # SQL's
+
+
 class Vehicle(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(null=False)
@@ -17,6 +19,15 @@ class Vehicle(models.Model):
     currently_in = models.CharField(max_length=30)              # currently in ""
     users = models.ManyToManyField(User)                        # чтобы лайкнуть car
 
+class MainImage(models.Model):
+    vehicle = models.OneToOneField(Vehicle, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='vehicle_images')
 
-class Image(models.Model):
-    Image = models.ImageField(upload_to='vehicle_images')
+class AdditionalImage(models.Model):
+    image = models.ImageField(upload_to='vehicle_images')
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+
+
+
+
+
