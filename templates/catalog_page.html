@@ -193,12 +193,12 @@
         <div class="nav-buttons navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <a href="{% url 'catalog' %}" class="nav-link"><p class="link-name">CATALOG</p></a>
+              <a href="{% url 'choose_vehicle' %}" class="nav-link"><p class="link-name">CATALOG</p></a>
             </li>
             <li class="nav-item active">
               <a href="{% url 'reviews' %}" class="nav-link"><p class="link-name">REVIEWS</p></a>
               <li class="nav-item active">
-                <a href="{% url 'register' %}" class="nav-link"><p class="link-name">ACCOUNT</p></a>
+                <a href="{% if request.user.is_authenticated %} {% url 'account' %} {% else %} {% url 'login' %} {% endif %}" class="nav-link"><p class="link-name">{% if user.is_authenticated %} {{ request.user.username }} {% else %} LOGIN {% endif %}</p></a>
               </li>
             </li>
           </ul>
@@ -216,7 +216,7 @@
       <div class="row">
         <div class="col-md">
           <div class="card">
-            <a href="#" class="card-link">
+            <a href="{% url 'about' %}" class="card-link">
               <img src="https://images.unsplash.com/photo-1494905998402-395d579af36f?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="car-image" class="card-img">
               <p class="car-type">
                 CAR NAME

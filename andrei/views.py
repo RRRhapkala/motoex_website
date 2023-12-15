@@ -36,7 +36,7 @@ def main_page(request):
     context = {}
     return render(request, 'main_page.html', context)
 
-def about_vehicle_page(request, id):
+def about_vehicle_page(request):  #def about_vehicle_page(request, id):
     # vehicle = Vehicle.objects.get(id=id)
     # context = {
     #     "vehicle": vehicle
