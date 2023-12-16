@@ -30,7 +30,7 @@ def login_user(request):
 
 def add_vehicle(request):
     def user_can_add_vehicle(user):
-        allowed_users = ['ggoutsiderr', 'a1']
+        allowed_users = ['ggoutsiderr', 'a2']
         return user.username in allowed_users
 
     if not user_can_add_vehicle(request.user):
@@ -40,7 +40,6 @@ def add_vehicle(request):
         form = VehicleForm(request.POST, request.FILES)
         if form.is_valid():
             vehicle = form.save(commit=False)
-
             vehicle.save()
 
             if 'main_image' in request.FILES:
@@ -57,8 +56,6 @@ def add_vehicle(request):
                         vehicle=vehicle
                     )
                     vehicle_additional_image.save()
-
-            return redirect('account')
 
 # def toggle_like(vehicle_id, user):
 #     vehicle_id = request.POST.get("vehicle_id")

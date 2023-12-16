@@ -212,7 +212,7 @@
 
           <div class="col-md d-flex">
             <div class="card flex-fill">
-              <a href="{% url 'catalog' %}" class="car-type-link">
+              <a href="{% url 'catalog' 'spec' %}" class="car-type-link">
                 <img src="images/spec_vehicle.jpeg" class="card-img" alt="">
                 <p class="car-type">
                   SPECIALIZED VEHICLES
@@ -223,7 +223,7 @@
 
           <div class="col-md d-flex">
             <div class="card flex-fill">
-              <a href="#" class="car-type-link">
+              <a href="{% url 'catalog' 'commercial' %}" class="car-type-link">
                 <img src="images/cargo.jpeg" class="card-img" alt="">
                 <p class="car-type">
                   COMMERCIAL TRANSPORT
@@ -241,7 +241,7 @@
           <!-- MAYBE IN 2 ROWS -->
           <div class="col-md d-flex">
             <div class="card flex-fill">
-              <a href="#" class="car-type-link">
+              <a href="{% url 'catalog' 'moto' %}" class="car-type-link">
                 <img src="images/moto.jpeg" class="card-img" alt="">
                 <p class="car-type">
                   MOTORCYCLES
@@ -252,7 +252,7 @@
           
           <div class="col-md d-flex">
             <div class="card flex-fill">
-              <a href="#" class="car-type-link">
+              <a href="{% url 'catalog' 'car' %}" class="car-type-link">
                 <img src="images/car.jpeg" class="card-img" alt="">
                 <p class="car-type">
                   CARS

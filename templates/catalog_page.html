@@ -214,68 +214,18 @@
 
     <div class="container-fluid catalog mt-4 px-5">
       <div class="row">
+        {% for vehicle in vehicles %}
         <div class="col-md">
           <div class="card">
-            <a href="{% url 'about' %}" class="card-link">
-              <img src="https://images.unsplash.com/photo-1494905998402-395d579af36f?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="car-image" class="card-img">
+            <a href="{% url 'about' vehicle.id %}" class="card-link">
+              <img src="{{ vehicle.mainimage.image.url }}" alt="car-image" class="card-img">
               <p class="car-type">
-                CAR NAME
+                {{ vehicle.name }}
               </p>
             </a>
           </div>
         </div>
-        <div class="col-md">
-          <div class="card">
-            <a href="#" class="card-link">
-              <img src="https://images.unsplash.com/photo-1494905998402-395d579af36f?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="car-image" class="card-img">
-              <p>
-                CAR NAME
-              </p>
-            </a>
-          </div>
-        </div>
-        <div class="col-md">
-          <div class="card">
-            <a href="#" class="card-link">
-              <img src="https://images.unsplash.com/photo-1494905998402-395d579af36f?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="car-image" class="card-img">
-              <p>
-                CAR NAME
-              </p>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md">
-          <div class="card">
-            <a href="#" class="card-link">
-              <img src="https://images.unsplash.com/photo-1494905998402-395d579af36f?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="car-image" class="card-img">
-              <p>
-                CAR NAME
-              </p>
-            </a>
-          </div>
-        </div>
-        <div class="col-md">
-          <div class="card">
-            <a href="#" class="card-link">
-              <img src="https://images.unsplash.com/photo-1494905998402-395d579af36f?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="car-image" class="card-img">
-              <p>
-                CAR NAME
-              </p>
-            </a>
-          </div>
-        </div>
-        <div class="col-md">
-          <div class="card">
-            <a href="#" class="card-link">
-              <img src="https://images.unsplash.com/photo-1494905998402-395d579af36f?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="car-image" class="card-img">
-              <p>
-                CAR NAME
-              </p>
-            </a>
-          </div>
-        </div>
+        {% endfor %}
       </div>
     </div>
 

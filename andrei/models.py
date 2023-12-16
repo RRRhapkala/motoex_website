@@ -10,7 +10,7 @@ class Vehicle(models.Model):
     description = models.TextField(null=False)
     lon = models.FloatField()
     lat = models.FloatField()
-    type = models.CharField(max_length=20)
+    _type = models.CharField(max_length=20)
     engine = models.CharField(max_length=100)
     fuel_type = models.CharField(max_length=100)
     year_of_prod = models.IntegerField()
@@ -21,10 +21,10 @@ class Vehicle(models.Model):
 
 class MainImage(models.Model):
     vehicle = models.OneToOneField(Vehicle, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='vehicle_images')
+    image = models.ImageField(upload_to='vehicle_images/')
 
 class AdditionalImage(models.Model):
-    image = models.ImageField(upload_to='vehicle_images')
+    image = models.ImageField(upload_to='additional_images/')
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
 
 

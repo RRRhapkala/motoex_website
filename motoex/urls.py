@@ -25,11 +25,11 @@ from andrei.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', main_page, name='main'),
-    path('about/', about_vehicle_page, name='about'),
+    path('about/<str:id>/', about_vehicle_page, name='about'),
     path('reviews/', reviews_page, name='reviews'),
     path('choose_vehicle_type/', choose_type_page, name='choose_vehicle'),
     path('account/', account_page, name='account'),
-    path('catalog/', catalog_page, name='catalog'),
+    path('catalog/<str:category>/', catalog_page, name='catalog'),
     path('sign_up/', register_page, name='register'),
     path('sign_in/', login_page, name='login'),
     path('add_vehicle/', add_vehicle_page, name='add_vehicle'),
@@ -37,4 +37,5 @@ urlpatterns = [
     path('', include("allauth.urls")),
     path('social/signup/', signup_redirect, name='signup_redirect'),
     path('accounts/profile/', signup_redirect, name='profile')
-]   + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]   + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)\
+    + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
