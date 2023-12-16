@@ -9,7 +9,7 @@ class VehicleForm(ModelForm):
             'description',
             'lon',
             'lat',
-            'type',
+            '_type',
             'engine',
             'fuel_type',
             'year_of_prod',

@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import User
 from django.http import request
 from django.shortcuts import redirect, render
-from andrei.models import Vehicle
+from andrei.models import Vehicle, MainImage, AdditionalImage
 from andrei.forms import VehicleForm
 from andrei.exceptions import *
 
@@ -30,7 +30,7 @@ def login_user(request):
 
 def add_vehicle(request):
     def user_can_add_vehicle(user):
-        allowed_users = ['ggoutsiderr']
+        allowed_users = ['ggoutsiderr', 'a2']
         return user.username in allowed_users
 
     if not user_can_add_vehicle(request.user):
@@ -43,14 +43,19 @@ def add_vehicle(request):
             vehicle.save()
 
             if 'main_image' in request.FILES:
-                vehicle.main_image = request.FILES['main_image']
-                vehicle.save()
+                vehicle_main_image = MainImage.objects.create(
+                    image=request.FILES.get('main_image'),
+                    vehicle=vehicle
+                )
+                vehicle_main_image.save()
 
             if 'additional_images' in request.FILES:
                 for image in request.FILES.getlist('additional_images'):
-                    vehicle.additional_images.create(image=image)
-
-            return redirect('account')
+                    vehicle_additional_image = AdditionalImage.objects.create(
+                        image=image,
+                        vehicle=vehicle
+                    )
+                    vehicle_additional_image.save()
 
 # def toggle_like(vehicle_id, user):
 #     vehicle_id = request.POST.get("vehicle_id")

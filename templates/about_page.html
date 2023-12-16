@@ -302,12 +302,12 @@
         <div class="nav-buttons navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <a href="{% url 'catalog' %}" class="nav-link"><p class="link-name">CATALOG</p></a>
+              <a href="{% url 'choose_vehicle' %}" class="nav-link"><p class="link-name">CATALOG</p></a>
             </li>
             <li class="nav-item active">
               <a href="{% url 'reviews' %}" class="nav-link"><p class="link-name">REVIEWS</p></a>
               <li class="nav-item active">
-                <a href="{% url 'register' %}" class="nav-link"><p class="link-name">ACCOUNT</p></a>
+                <a href="{% if request.user.is_authenticated %} {% url 'account' %} {% else %} {% url 'login' %} {% endif %}" class="nav-link"><p class="link-name">{% if user.is_authenticated %} {{ request.user.username }} {% else %} LOGIN {% endif %}</p></a>
               </li>
             </li>
           </ul>
@@ -323,27 +323,21 @@
     <div class="row car-cols">
       <div class="col-xl-7 carousel">
         <div class="slider-for" id="slick-images">
-          <img class="carousel-image" src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&q=80&w=1770&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-          <img class="carousel-image" src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-          <img class="carousel-image" src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-          <img class="carousel-image" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt=""> 
-          <img class="carousel-image" src="https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-          <img class="carousel-image" src="https://images.unsplash.com/photo-1541443131876-44b03de101c5?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+          {% for image in images_set %}
+            <img class="carousel-image" src="{{ image.image.url }}" alt="">
+          {% endfor %}
         </div>
         <div class="slider-nav container" id="slider-nav">
-          <img class="bottom-carousel-image" src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&q=80&w=1770&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-          <img class="bottom-carousel-image" src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-          <img class="bottom-carousel-image" src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-          <img class="bottom-carousel-image" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt=""> 
-          <img class="bottom-carousel-image" src="https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-          <img class="bottom-carousel-image" src="https://images.unsplash.com/photo-1541443131876-44b03de101c5?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+          {% for image in images_set %}
+            <img class="carousel-image" src="{{ image.image.url }}" alt="">
+          {% endfor %}        
         </div>
       </div>
       <div class="col-xl-5">
         <div class="info">
           <div class="row">
             <h4>
-              <span>CAR NAME</span>
+              <span>{{ vehicle.name }}</span>
             </h4>
           </div>
           <div class="row">

@@ -188,12 +188,12 @@
         <div class="nav-buttons navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <a href="{% url 'catalog' %}" class="nav-link"><p class="link-name">CATALOG</p></a>
+              <a href="{% url 'choose_vehicle' %}" class="nav-link"><p class="link-name">CATALOG</p></a>
             </li>
             <li class="nav-item active">
               <a href="{% url 'reviews' %}" class="nav-link"><p class="link-name">REVIEWS</p></a>
               <li class="nav-item active">
-                <a href="{% url 'register' %}" class="nav-link"><p class="link-name">ACCOUNT</p></a>
+                <a href="{% if request.user.is_authenticated %} {% url 'account' %} {% else %} {% url 'login' %} {% endif %}" class="nav-link"><p class="link-name">{% if user.is_authenticated %} {{ request.user.username }} {% else %} LOGIN {% endif %}</p></a>
               </li>
             </li>
           </ul>
@@ -212,7 +212,7 @@
 
           <div class="col-md d-flex">
             <div class="card flex-fill">
-              <a href="#" class="car-type-link">
+              <a href="{% url 'catalog' 'spec' %}" class="car-type-link">
                 <img src="images/spec_vehicle.jpeg" class="card-img" alt="">
                 <p class="car-type">
                   SPECIALIZED VEHICLES
@@ -223,7 +223,7 @@
 
           <div class="col-md d-flex">
             <div class="card flex-fill">
-              <a href="#" class="car-type-link">
+              <a href="{% url 'catalog' 'commercial' %}" class="car-type-link">
                 <img src="images/cargo.jpeg" class="card-img" alt="">
                 <p class="car-type">
                   COMMERCIAL TRANSPORT
@@ -241,7 +241,7 @@
           <!-- MAYBE IN 2 ROWS -->
           <div class="col-md d-flex">
             <div class="card flex-fill">
-              <a href="#" class="car-type-link">
+              <a href="{% url 'catalog' 'moto' %}" class="car-type-link">
                 <img src="images/moto.jpeg" class="card-img" alt="">
                 <p class="car-type">
                   MOTORCYCLES
@@ -252,7 +252,7 @@
           
           <div class="col-md d-flex">
             <div class="card flex-fill">
-              <a href="#" class="car-type-link">
+              <a href="{% url 'catalog' 'car' %}" class="car-type-link">
                 <img src="images/car.jpeg" class="card-img" alt="">
                 <p class="car-type">
                   CARS

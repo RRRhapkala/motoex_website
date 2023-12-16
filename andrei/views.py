@@ -36,14 +36,16 @@ def main_page(request):
     context = {}
     return render(request, 'main_page.html', context)
 
-def about_vehicle_page(request, id):
-    # vehicle = Vehicle.objects.get(id=id)
-    # context = {
-    #     "vehicle": vehicle
-    # }
-    # if request.method == "POST":
-    #     toggle_like(request)
-    return render(request, 'about_page.html', {'like_vehicle_class':'like-vehicle-pressed'})
+def about_vehicle_page(request, id: str):  #def about_vehicle_page(request, id):
+    vehicle = Vehicle.objects.get(id=id)
+    context = {
+        "vehicle": vehicle,
+        'images_set': vehicle.additionalimage_set.all(),
+        'like_vehicle_class': 'like-vehicle-pressed'
+    }
+    if request.method == "POST":
+        toggle_like(request)
+    return render(request, 'about_page.html', context=context)
 
 def reviews_page(request):
     return render(request, 'reviews_page.html', {})
@@ -54,14 +56,16 @@ def choose_type_page(request):
 def account_page(request):
     return render(request, 'account_page.html', {})
 
-def catalog_page(request):
-    return render(request, 'catalog_page.html', {})
+def catalog_page(request, category: str):
+    vehicles = Vehicle.objects.filter(_type=category.lower())
+    return render(request, 'catalog_page.html', {'vehicles': vehicles})
 
 def add_vehicle_page(request):
-    try:
-        add_vehicle(request)
-    except UCantAddVehicle as e:
-        messages.error(request, e)
+    if request.method == 'POST':
+        try:
+            add_vehicle(request)
+        except UCantAddVehicle as e:
+            messages.error(request, e)
         return redirect('main')
     return render(request, 'add_vehicle_page.html', {})
 
