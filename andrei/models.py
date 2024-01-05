@@ -13,6 +13,7 @@ class Vehicle(models.Model):
     _type = models.CharField(max_length=20)
     engine = models.CharField(max_length=100)
     fuel_type = models.CharField(max_length=100)
+    transmission = models.CharField(max_length=10)
     year_of_prod = models.IntegerField()
     mileage = models.CharField(max_length=15)
     hometown = models.CharField(max_length=30)                  # from ""

@@ -347,7 +347,7 @@
                 <p>Engine</p>
               </div>
               <div class="col-6 d-flex info-right">
-                1.9 Tdi
+                {{ vehicle.engine }}
               </div>
             </div>
             <div class="row info-row">
@@ -356,7 +356,7 @@
                 <p>Fuel type</p>
               </div>
               <div class="col-6 d-flex info-right">
-                Diesel
+                {{ vehicle.fuel_type }}
               </div>
             </div>
             <div class="row info-row">
@@ -365,7 +365,7 @@
                 <p>Transmission</p>
               </div>
               <div class="col-6 d-flex info-right">
-                Manual
+                {{ vehicle.transmission }}
               </div>
             </div>
             <div class="row info-row">
@@ -374,7 +374,7 @@
                 <p>Year of production</p>
               </div>
               <div class="col-6 d-flex info-right">
-                1999
+                {{ vehicle.year_of_prod }}
               </div>
             </div>
             <div class="row info-row">
@@ -383,16 +383,16 @@
                 <p>Mileage</p>
               </div>
               <div class="col-6 d-flex info-right">
-                228000 km
+                {{ vehicle.mileage }}
               </div>
             </div>
             <div class="row info-row">
               <div class="col-6 d-flex info-left">
                 <i class='bx bxs-map-pin bx-md' style="color: #ff6600;"></i>
-                <p>From Slovakia</p>
+                <p>From {{ vehicle.hometown }}</p>
               </div>
               <div class="col-6 d-flex info-right">
-                Currently in Brest
+                Currently in {{ vehicle.currently_in }}
               </div>
             </div>
           </div>
@@ -402,7 +402,7 @@
               <span>DESCRIPTION</span>
             </h4>
             <p style="text-align: justify;">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quibusdam sunt veniam quos. Laboriosam dolore voluptatum ipsa quas nesciunt accusamus facilis distinctio consequuntur quia perspiciatis illo, error, debitis reprehenderit quaerat!
+              {{ vehicle.description }}
             </p>
           </div>
 

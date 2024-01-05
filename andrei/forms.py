@@ -12,6 +12,7 @@ class VehicleForm(ModelForm):
             '_type',
             'engine',
             'fuel_type',
+            'transmission',
             'year_of_prod',
             'mileage',
             'hometown',
