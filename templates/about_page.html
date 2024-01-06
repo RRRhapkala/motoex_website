@@ -101,10 +101,8 @@
       padding-left: 1vw;
       padding-right: 1vw;
     }
-    #slider-nav > .slick-list > .slick-track > img {
-      object-fit: contain;
+    #slider-nav > .slick-list > .slick-track > div {
       margin: 10px;
-      width: 20%;
     }
     #slick-images > button {
       position: relative;
@@ -147,13 +145,18 @@
     }
     .carousel-image {
       border-radius: 15px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
       -webkit-box-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 1);
       -moz-box-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 1);
       box-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 1);
     }
     .bottom-carousel-image {
-      height: auto;
       border-radius: 10px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
       -webkit-box-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 1);
       -moz-box-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 1);
       box-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 1);
@@ -318,12 +321,12 @@
       <div class="col-xl-7 carousel">
         <div class="slider-for" id="slick-images">
           {% for image in images_set %}
-            <img class="carousel-image" src="{{ image.image.url }}" alt="">
+            <div class="carousel-image auto-resize" style="background-image:url('{{ image.image.url }}')"></div>
           {% endfor %}
         </div>
         <div class="slider-nav container" id="slider-nav">
           {% for image in images_set %}
-            <img class="carousel-image" src="{{ image.image.url }}" alt="">
+            <div class="carousel-image auto-resize" style="background-image:url('{{ image.image.url }}')"></div>
           {% endfor %}        
         </div>
       </div>
@@ -462,6 +465,12 @@
     <script src="{% static 'map_logic.js' %}"></script>
     <script src="{% static 'v8.2.0-package/dist/ol.js' %}"></script>
     <script>
+      function adjustHeight (el, aspectRatio) {
+        let width = el.getBoundingClientRect().width;
+        el.style.height = Math.round(width / aspectRatio) + 'px';
+        console.log(width);
+      }
+
       function toggleLike(el) {
         if (el.classList.contains("like-vehicle-pressed")) {
           el.classList.remove("like-vehicle-pressed");
@@ -496,6 +505,9 @@
               arrows: false,
               infinity: true
             });
+          Array.from($(".auto-resize")).forEach(image => {
+            adjustHeight(image, 16/9);
+          })
         });
       </script>
 </body>
