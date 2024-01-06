@@ -81,8 +81,8 @@
     }
     #slick-images {
       height: auto;
-      padding-left: 10px;
-      padding-right: 10px;
+      padding-left: 1vw;
+      padding-right: 1vw;
       text-align: center;
       display: flex;
       justify-content: center;
@@ -102,7 +102,7 @@
       padding-right: 1vw;
     }
     #slider-nav > .slick-list > .slick-track > div {
-      margin: 10px;
+      margin: min(2vw, 10px);
     }
     #slick-images > button {
       position: relative;
@@ -122,11 +122,13 @@
       background-image: url("{% static 'arrow-right.svg' %}")!important;
       background-repeat: no-repeat!important;
       background-size: contain!important;
+      
     }
     .slick-prev, .slick-prev:hover {
       background-image: url("{% static 'arrow-left.svg' %}")!important;
       background-repeat: no-repeat!important;
       background-size: contain!important;
+      
     }
     .slick-next::before, .slick-prev::before {
       display: none;
@@ -135,7 +137,7 @@
       background-repeat: no-repeat;
     }
     #slick-images > div {
-      width: 50vw;
+      width: 100vw;
       height: auto;
       object-fit: contain;
     }
@@ -144,7 +146,8 @@
       margin-bottom: 2vh;
     }
     .carousel-image {
-      border-radius: 15px;
+
+      border-radius: 1.5vw;
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center;
@@ -153,7 +156,7 @@
       box-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 1);
     }
     .bottom-carousel-image {
-      border-radius: 10px;
+      border-radius: 1vw;
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center;
@@ -163,6 +166,7 @@
     }
     .slick-arrow {
       width: fit-content;
+      margin: 2vw!important; 
     }
     .bx {
       width: auto;
@@ -326,7 +330,7 @@
         </div>
         <div class="slider-nav container" id="slider-nav">
           {% for image in images_set %}
-            <div class="carousel-image auto-resize" style="background-image:url('{{ image.image.url }}')"></div>
+            <div class="bottom-carousel-image auto-resize" style="background-image:url('{{ image.image.url }}')"></div>
           {% endfor %}        
         </div>
       </div>
