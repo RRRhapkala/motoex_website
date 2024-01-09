@@ -94,15 +94,15 @@
       object-fit: contain;
     }
     .slick-track {
-      padding-bottom: 1vh;
+      padding-bottom: min(1vh, 10px);
     }
     .slick-list {
-      padding-bottom: 2vh;
+      padding-bottom: 1vh;
       padding-left: 1vw;
       padding-right: 1vw;
     }
     #slider-nav > .slick-list > .slick-track > div {
-      margin: min(2vw, 10px);
+      margin: min(0.75vw, 10px);
     }
     #slick-images > button {
       position: relative;
@@ -142,27 +142,30 @@
       object-fit: contain;
     }
     #slider-nav {
-      margin-top: 2vh;
+      width: auto;
       margin-bottom: 2vh;
+      /*padding-top: 1.5vw;
+      padding-bottom: 3vw; */
     }
     .carousel-image {
-
       border-radius: 1.5vw;
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center;
-      -webkit-box-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 1);
-      -moz-box-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 1);
-      box-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 1);
+      --shadow-size: min(1vw, 10px); /* определение размера тени через min() */
+      -webkit-box-shadow: 0px var(--shadow-size) var(--shadow-size) calc(-0.5 * var(--shadow-size)) rgba(0, 0, 0, 0.8);
+      -moz-box-shadow: 0px var(--shadow-size) var(--shadow-size) calc(-0.5 * var(--shadow-size)) rgba(0, 0, 0, 0.8);
+      box-shadow: 0px var(--shadow-size) var(--shadow-size) calc(-0.5 * var(--shadow-size)) rgba(0, 0, 0, 0.8);
     }
     .bottom-carousel-image {
       border-radius: 1vw;
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center;
-      -webkit-box-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 1);
-      -moz-box-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 1);
-      box-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 1);
+      --shadow-size: min(1vw, 10px); /* определение размера тени через min() */
+      -webkit-box-shadow: 0px var(--shadow-size) var(--shadow-size) calc(-0.5 * var(--shadow-size)) rgba(0, 0, 0, 0.8);
+      -moz-box-shadow: 0px var(--shadow-size) var(--shadow-size) calc(-0.5 * var(--shadow-size)) rgba(0, 0, 0, 0.8);
+      box-shadow: 0px var(--shadow-size) var(--shadow-size) calc(-0.5 * var(--shadow-size)) rgba(0, 0, 0, 0.8);
     }
     .slick-arrow {
       width: fit-content;
@@ -260,6 +263,14 @@
     }
     #js-map {
       width: 100%;
+      height: 100%;
+      padding: 1vw 1vw 1vw 1vw;
+    }
+    .map-frame{
+      width: 100%;
+      height: 50vh;
+      background: #3A3939;
+      border-radius: 15px;
     }
     .like-vehicle:hover{
       color: white;
@@ -338,7 +349,7 @@
         <div class="info">
           <div class="row">
             <h4>
-              <span>{{ vehicle.name }}</span>
+              <span style="font-size:xxx-large; ">{{ vehicle.name }}</span>
             </h4>
           </div>
           <div class="row">
@@ -363,7 +374,7 @@
             <div class="row info-row">
               <div class="col-6 d-flex info-left">
                 <i class='bx bx-sitemap bx-md' style="color: #ff6600;"></i>
-                <p>Transmission</p>
+                <p>Gearbox</p>
               </div>
               <div class="col-6 d-flex info-right">
                 {{ vehicle.transmission }}
@@ -417,7 +428,9 @@
     </div>
 
     <div class="container-fluid mapped">
-      <div id="js-map" class="map"></div>
+      <div class="map-frame">
+        <div id="js-map" class="map"></div>
+      </div>
     </div>
     
     
@@ -469,6 +482,9 @@
     <script src="{% static 'map_logic.js' %}"></script>
     <script src="{% static 'v8.2.0-package/dist/ol.js' %}"></script>
     <script>
+
+      const markerImagePath = "{% static 'marker.svg' %}";
+
       function adjustHeight (el, aspectRatio) {
         let width = el.getBoundingClientRect().width;
         el.style.height = Math.round(width / aspectRatio) + 'px';

@@ -57,8 +57,19 @@ def add_vehicle(request):
                     )
                     vehicle_additional_image.save()
 
-# def toggle_like(vehicle_id, user):
-#     vehicle_id = request.POST.get("vehicle_id")
-#     vehicle = Vehicle.objects.get(id=vehicle_id)
-#     vehicle.users.remove(request.user)
-#     vehicle.save()
+
+def get_liked_vehicles_for_user(request):
+    vehicles = Vehicle.objects.filter(users__in=[request.user])
+    return vehicles
+
+def like_car(request):
+    vehicle_id = request.POST.get('vehicle_id')
+    vehicle = Vehicle.objects.get(id=vehicle_id)
+    vehicle.users.add(request.user)
+    vehicle.save()
+
+def dislike_car(request):
+    vehicle_id = request.POST.get('vehicle_id')
+    vehicle = Vehicle.objects.get(id=vehicle_id)
+    vehicle.users.remove(request.user)
+    vehicle.save()

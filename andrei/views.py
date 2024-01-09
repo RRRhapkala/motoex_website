@@ -36,7 +36,7 @@ def main_page(request):
     context = {}
     return render(request, 'main_page.html', context)
 
-def about_vehicle_page(request, id: str):  #def about_vehicle_page(request, id):
+def about_vehicle_page(request, id: str):
     vehicle = Vehicle.objects.get(id=id)
     context = {
         "vehicle": vehicle,
@@ -44,7 +44,7 @@ def about_vehicle_page(request, id: str):  #def about_vehicle_page(request, id):
         'like_vehicle_class': 'like-vehicle-pressed'
     }
     if request.method == "POST":
-        toggle_like(request)
+        like_car(request)
     return render(request, 'about_page.html', context=context)
 
 def reviews_page(request):
@@ -54,6 +54,13 @@ def choose_type_page(request):
     return render(request, 'choose_v_type.html', {})
 
 def account_page(request):
+    context = get_liked_vehicles_for_user(request)
+    if request.method == 'POST':
+        if request.POST.get('action') == 'Cancel':
+            dislike_car(request)
+            return redirect('account')
+        if request.POST.get('action') == 'Signout':
+            return redirect('main')
     return render(request, 'account_page.html', {})
 
 def catalog_page(request, category: str):
@@ -73,7 +80,7 @@ def signup_redirect(request):
     messages.error(request, "Something wrong here, it may be that you already have account!")
     return redirect('main')
 
-def toggle_like(request):
-    return render(request)
-
-    # request.user for user *
+# def toggle_like(request):
+#     return render(request)
+#
+#     # request.user for user *
