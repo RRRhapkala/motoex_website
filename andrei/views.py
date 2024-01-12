@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.http import JsonResponse
+from django.contrib.auth.models import User
 
 from andrei.exceptions import *
 from andrei.models import Vehicle
@@ -38,13 +39,12 @@ def main_page(request):
 
 def about_vehicle_page(request, id: str):
     vehicle = Vehicle.objects.get(id=id)
+    like_vehicle_class = get_user_like_vehicle_class(request, vehicle)
     context = {
         "vehicle": vehicle,
         'images_set': vehicle.additionalimage_set.all(),
-        'like_vehicle_class': 'like-vehicle-nonpressed'
+        'like_vehicle_class': like_vehicle_class
     }
-    if request.method == "POST":
-        like_car(request)
     return render(request, 'about_page.html', context=context)
 
 def reviews_page(request):
@@ -54,14 +54,13 @@ def choose_type_page(request):
     return render(request, 'choose_v_type.html', {})
 
 def account_page(request):
-    context = get_liked_vehicles_for_user(request)
+    context = {'liked_vehicles': get_liked_vehicles_for_user(request)}
     if request.method == 'POST':
         if request.POST.get('action') == 'Cancel':
-            dislike_car(request)
             return redirect('account')
         if request.POST.get('action') == 'Signout':
             return redirect('main')
-    return render(request, 'account_page.html', {})
+    return render(request, 'account_page.html', context)
 
 def catalog_page(request, category: str):
     vehicles = Vehicle.objects.filter(_type=category.lower())
@@ -79,6 +78,11 @@ def add_vehicle_page(request):
 def signup_redirect(request):
     messages.error(request, "Something wrong here, it may be that you already have account!")
     return redirect('main')
+
+def like_car_ajax(request):
+    if request.user.is_authenticated:
+        toggle_like(request.user, Vehicle.objects.get(id=request.POST.get('vehicle_id')))
+    return JsonResponse({"status": "Success"})
 
 # def toggle_like(request):
 #     return render(request)

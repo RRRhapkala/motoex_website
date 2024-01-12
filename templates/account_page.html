@@ -225,14 +225,14 @@
         <p class="title-1">FAVOURITE VEHICLES</p>
       </div>
     </div>
-
-    {% for vehicle_ in liked_vehicles %}
+    {% comment %} Adjust height of da images HERE {% endcomment %}
+    {% for vehicle in liked_vehicles %}
     <div class="rev-container">
       <div class="container-fluid review">
         <div class="row">
           <div class="col-xl-5">
             <div class="vehicle-preview-image">
-              <a href="{% url 'vehicle' vehicle_.id  %}"><img src="{{MainImage.image}}" alt="vehicle-preview-image" id="vehicle-image"></a>
+              <a href="{% url 'about' vehicle.id  %}"><img src="{{ vehicle.mainimage.image.url }}" alt="vehicle-preview-image" id="vehicle-image"></a>
             </div>
           </div>
           <div class="col-xl-7">

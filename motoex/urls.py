@@ -33,7 +33,7 @@ urlpatterns = [
     path('sign_up/', register_page, name='register'),
     path('sign_in/', login_page, name='login'),
     path('add_vehicle/', add_vehicle_page, name='add_vehicle'),
-    path('toggle_like/', like_car, name='toggle_like'),
+    path('toggle_like/', like_car_ajax, name='toggle_like'),
     path('', include("allauth.urls")),
     path('social/signup/', signup_redirect, name='signup_redirect'),
     path('accounts/profile/', signup_redirect, name='profile')

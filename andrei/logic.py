@@ -59,19 +59,22 @@ def add_vehicle(request):
 
 
 def get_liked_vehicles_for_user(request):
-    liked_vehicles = Vehicle.objects.filter(users_set__contains=request.user)
+    liked_vehicles = Vehicle.objects.filter(users__id__contains=request.user.id)
     return liked_vehicles
 
-def like_car(request):
-    vehicle_id = request.POST.get('vehicle_id')
-    vehicle = Vehicle.objects.get(id=vehicle_id)
-    # vehicle = get_object_or_404(Vehicle, id=vehicle_id)
-    vehicle.users.add(request.user)
-    vehicle.save()
+def get_user_like_vehicle_class(request, vehicle: Vehicle):
+    if not request.user.is_authenticated:
+        return 'like-vehicle-nonpressed'
+    
+    return 'like-vehicle-pressed' \
+        if vehicle.users.filter(id=request.user.id).exists() \
+        else 'like-vehicle-nonpressed'
 
-def dislike_car(request):
-    vehicle_id = request.POST.get('vehicle_id')
-    vehicle = Vehicle.objects.get(id=vehicle_id)
-    # vehicle = get_object_or_404(Vehicle, id=vehicle_id)
-    vehicle.users.remove(request.user)
-    vehicle.save()
+def toggle_like(user: User, vehicle: Vehicle):
+    if vehicle is None:
+        return
+    
+    if vehicle.users.filter(id=user.id).exists():
+        vehicle.users.remove(user)
+    else:
+        vehicle.users.add(user)
