@@ -41,7 +41,7 @@ def about_vehicle_page(request, id: str):
     context = {
         "vehicle": vehicle,
         'images_set': vehicle.additionalimage_set.all(),
-        'like_vehicle_class': 'like-vehicle-pressed'
+        'like_vehicle_class': 'like-vehicle-nonpressed'
     }
     if request.method == "POST":
         like_car(request)

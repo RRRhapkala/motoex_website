@@ -25,7 +25,7 @@ from andrei.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', main_page, name='main'),
-    path('about/<str:id>/', about_vehicle_page, name='about'),
+    path('about/<int:id>/', about_vehicle_page, name='about'),             #str? why not int?
     path('reviews/', reviews_page, name='reviews'),
     path('choose_vehicle_type/', choose_type_page, name='choose_vehicle'),
     path('account/', account_page, name='account'),

@@ -418,11 +418,14 @@
             </p>
           </div>
 
-
-            <div style="text-align: center;">
-              <button type="submit" onclick="toggleLike(this)" class="like-vehicle {{ like_vehicle_class }}" style="align-self: center; width: 20vw">Like it!<i class='bx bxs-bookmark-heart'></i></button>
+            {% if request.user.is_authenticated %}
+          <form method="POST" action="">
+            {% csrf_token %}
+             <div style="text-align: center;">
+              <button type="submit" onclick="toggleLike(this)" class="like-vehicle" style="align-self: center; width: 20vw" value="{{ vehicle.id }}" name="action">Like it!<i class='bx bxs-bookmark-heart'></i></button>
             </div>
-
+          </form>
+            {% endif %}
         </div>
       </div>
     </div>

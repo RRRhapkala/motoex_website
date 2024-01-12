@@ -2,7 +2,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import User
 from django.http import request
-from django.shortcuts import redirect, render
+from django.shortcuts import render, get_object_or_404, redirect
 from andrei.models import Vehicle, MainImage, AdditionalImage
 from andrei.forms import VehicleForm
 from andrei.exceptions import *
@@ -59,17 +59,19 @@ def add_vehicle(request):
 
 
 def get_liked_vehicles_for_user(request):
-    vehicles = Vehicle.objects.filter(users__in=[request.user])
-    return vehicles
+    liked_vehicles = Vehicle.objects.filter(users_set__contains=request.user)
+    return liked_vehicles
 
 def like_car(request):
     vehicle_id = request.POST.get('vehicle_id')
     vehicle = Vehicle.objects.get(id=vehicle_id)
+    # vehicle = get_object_or_404(Vehicle, id=vehicle_id)
     vehicle.users.add(request.user)
     vehicle.save()
 
 def dislike_car(request):
     vehicle_id = request.POST.get('vehicle_id')
     vehicle = Vehicle.objects.get(id=vehicle_id)
+    # vehicle = get_object_or_404(Vehicle, id=vehicle_id)
     vehicle.users.remove(request.user)
     vehicle.save()

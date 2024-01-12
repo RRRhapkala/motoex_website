@@ -226,17 +226,18 @@
       </div>
     </div>
 
+    {% for vehicle_ in liked_vehicles %}
     <div class="rev-container">
       <div class="container-fluid review">
         <div class="row">
           <div class="col-xl-5">
             <div class="vehicle-preview-image">
-              <a href="#car"><img src="https://images.unsplash.com/photo-1566008885218-90abf9200ddb?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="vehicle-preview-image" id="vehicle-image"></a>
+              <a href="{% url 'vehicle' vehicle_.id  %}"><img src="{{MainImage.image}}" alt="vehicle-preview-image" id="vehicle-image"></a>
             </div>
           </div>
           <div class="col-xl-7">
             <div class="row top">
-              <span class="vehicle-name" style="text-align: center; font-size: 2rem; padding-bottom: 2.5rem;">VEHICLE NAME</span>
+              <span class="vehicle-name" style="text-align: center; font-size: 2rem; padding-bottom: 2.5rem;">{{ vehicle.name }}</span>
             </div>
             <div class="row bottom">
               <div class="col-md-6">
@@ -247,7 +248,7 @@
                     <p class="vehicle-info">Engine</p>
                   </div>
                   <div class="col-sm-6 d-flex info-right">
-                    <p class="vehicle-tth">1.9 Tdi</p>
+                    <p class="vehicle-tth">{{ vehicle.engine }}</p>
                   </div>
                 </div>
 
@@ -257,17 +258,17 @@
                     <p class="vehicle-info">Fuel type</p>
                   </div>
                   <div class="col-sm-6 d-flex info-right">
-                    <p class="vehicle-tth">Diesel</p>
+                    <p class="vehicle-tth">{{ vehicle.fuel_type }}</p>
                   </div>
                 </div>
                 
                 <div class="row info-row">
                   <div class="col-sm-6 d-flex info-right">
                     <i class='bx bx-sitemap bx-md' style="color: #ff6600;"></i>
-                    <p class="vehicle-info">Transmission</p>
+                    <p class="vehicle-info">Gearbox</p>
                   </div>
                   <div class="col-sm-6 d-flex info-right">
-                    <p class="vehicle-tth">Manual</p>
+                    <p class="vehicle-tth">{{ vehicle.transmission }}</p>
                   </div>
                 </div>
 
@@ -280,7 +281,7 @@
                     <p class="vehicle-info">Year of production</p>
                   </div>
                   <div class="col-sm-6 d-flex info-right">
-                    <p class="vehicle-tth">1999</p>
+                    <p class="vehicle-tth">{{ vehicle.year_of_prod }}</p>
                   </div>
                 </div>
 
@@ -290,17 +291,17 @@
                     <p class="vehicle-info">Mileage</p>
                   </div>
                   <div class="col-sm-6 d-flex info-right">
-                    <p class="vehicle-tth">228000 km</p>
+                    <p class="vehicle-tth">{{ vehicle.mileage }}</p>
                   </div>
                 </div>
 
                 <div class="row info-row">
                   <div class="col-sm-6 d-flex info-right">
                     <i class='bx bxs-map-pin bx-md' style="color: #ff6600;"></i>
-                    <p class="vehicle-info">From Slovakia</p>
+                    <p class="vehicle-info">From {{ vehicle.hometown }}</p>
                   </div>
                   <div class="col-sm-6 d-flex info-right">
-                    <p class="vehicle-tth">Currently in Brest</p>
+                    <p class="vehicle-tth"> Currently in {{ vehicle.currently_in }}</p>
                   </div>
                 </div>
 
@@ -310,6 +311,7 @@
         </div>
       </div>
     </div>
+    {% endfor %}
 
     
 
