@@ -333,99 +333,100 @@
       </div>
     </div>
     <div class="row car-cols">
-      <div class="col-xl-7 carousel">
-        <div class="slider-for" id="slick-images">
-          {% for image in images_set %}
-            <div class="carousel-image auto-resize" style="background-image:url('{{ image.image.url }}')"></div>
-          {% endfor %}
-        </div>
-        <div class="slider-nav container" id="slider-nav">
-          {% for image in images_set %}
-            <div class="bottom-carousel-image auto-resize" style="background-image:url('{{ image.image.url }}')"></div>
-          {% endfor %}        
-        </div>
-      </div>
-      <div class="col-xl-5">
-        <div class="info">
-          <div class="row">
-            <h4>
-              <span style="font-size:xxx-large; ">{{ vehicle.name }}</span>
-            </h4>
+        <div class="col-xl-7 carousel">
+          <div class="slider-for" id="slick-images">
+            {% for image in images_set %}
+              <div class="carousel-image auto-resize" style="background-image:url('{{ image.image.url }}')"></div>
+            {% endfor %}
           </div>
-          <div class="row">
-            <div class="row info-row">
-              <div class="col-6 d-flex info-left">
-                <i class='bx bxs-cog bx-md' style="color: #ff6600;"></i>
-                <p>Engine</p>
-              </div>
-              <div class="col-6 d-flex info-right">
-                {{ vehicle.engine }}
-              </div>
-            </div>
-            <div class="row info-row">
-              <div class="col-6 d-flex info-left">
-                <i class='bx bxs-gas-pump bx-md' style="color: #ff6600;"></i>
-                <p>Fuel type</p>
-              </div>
-              <div class="col-6 d-flex info-right">
-                {{ vehicle.fuel_type }}
-              </div>
-            </div>
-            <div class="row info-row">
-              <div class="col-6 d-flex info-left">
-                <i class='bx bx-sitemap bx-md' style="color: #ff6600;"></i>
-                <p>Gearbox</p>
-              </div>
-              <div class="col-6 d-flex info-right">
-                {{ vehicle.transmission }}
-              </div>
-            </div>
-            <div class="row info-row">
-              <div class="col-6 d-flex info-left">
-                <i class='bx bx-calendar bx-md' style="color: #ff6600;"></i>
-                <p>Year of production</p>
-              </div>
-              <div class="col-6 d-flex info-right">
-                {{ vehicle.year_of_prod }}
-              </div>
-            </div>
-            <div class="row info-row">
-              <div class="col-6 d-flex info-left">
-                <i class='bx bx-run bx-md' style="color: #ff6600;"></i>
-                <p>Mileage</p>
-              </div>
-              <div class="col-6 d-flex info-right">
-                {{ vehicle.mileage }}
-              </div>
-            </div>
-            <div class="row info-row">
-              <div class="col-6 d-flex info-left">
-                <i class='bx bxs-map-pin bx-md' style="color: #ff6600;"></i>
-                <p>From {{ vehicle.hometown }}</p>
-              </div>
-              <div class="col-6 d-flex info-right">
-                Currently in {{ vehicle.currently_in }}
-              </div>
-            </div>
+          <div class="slider-nav container" id="slider-nav">
+            {% for image in images_set %}
+              <div class="bottom-carousel-image auto-resize" style="background-image:url('{{ image.image.url }}')"></div>
+            {% endfor %}        
           </div>
-
-          <div class="row description">
-            <h4 style="color: #ff6600; margin-left: 20px; width: min-content">
-              <span>DESCRIPTION</span>
-            </h4>
-            <p style="text-align: justify;">
-              {{ vehicle.description }}
-            </p>
-          </div>
-
-            {% if request.user.is_authenticated %}
-            {% csrf_token %}
-              <div style="text-align: center;">
-                <button type="submit" onclick="toggleLike(this)" class="like-vehicle {{ like_vehicle_class }}" style="align-self: center; width: 20vw" value="{{ vehicle.id }}">Like it!<i class='bx bxs-bookmark-heart'></i></button>
-              </div>
-            {% endif %}
         </div>
-      </div>
+        <div class="col-xl-5">
+          <div class="info">
+            <div class="row">
+              <h4>
+                <span style="font-size:xxx-large; ">{{ vehicle.name }}</span>
+              </h4>
+            </div>
+            <div class="row">
+              <div class="row info-row">
+                <div class="col-6 d-flex info-left">
+                  <i class='bx bxs-cog bx-md' style="color: #ff6600;"></i>
+                  <p>Engine</p>
+                </div>
+                <div class="col-6 d-flex info-right">
+                  {{ vehicle.engine }}
+                </div>
+              </div>
+              <div class="row info-row">
+                <div class="col-6 d-flex info-left">
+                  <i class='bx bxs-gas-pump bx-md' style="color: #ff6600;"></i>
+                  <p>Fuel type</p>
+                </div>
+                <div class="col-6 d-flex info-right">
+                  {{ vehicle.fuel_type }}
+                </div>
+              </div>
+              <div class="row info-row">
+                <div class="col-6 d-flex info-left">
+                  <i class='bx bx-sitemap bx-md' style="color: #ff6600;"></i>
+                  <p>Gearbox</p>
+                </div>
+                <div class="col-6 d-flex info-right">
+                  {{ vehicle.transmission }}
+                </div>
+              </div>
+              <div class="row info-row">
+                <div class="col-6 d-flex info-left">
+                  <i class='bx bx-calendar bx-md' style="color: #ff6600;"></i>
+                  <p>Year of production</p>
+                </div>
+                <div class="col-6 d-flex info-right">
+                  {{ vehicle.year_of_prod }}
+                </div>
+              </div>
+              <div class="row info-row">
+                <div class="col-6 d-flex info-left">
+                  <i class='bx bx-run bx-md' style="color: #ff6600;"></i>
+                  <p>Mileage</p>
+                </div>
+                <div class="col-6 d-flex info-right">
+                  {{ vehicle.mileage }}
+                </div>
+              </div>
+              <div class="row info-row">
+                <div class="col-6 d-flex info-left">
+                  <i class='bx bxs-map-pin bx-md' style="color: #ff6600;"></i>
+                  <p>From {{ vehicle.hometown }}</p>
+                </div>
+                <div class="col-6 d-flex info-right">
+                  Currently in {{ vehicle.currently_in }}
+                </div>
+              </div>
+            </div>
+  
+            <div class="row description">
+              <h4 style="color: #ff6600; margin-left: 20px; width: min-content">
+                <span>DESCRIPTION</span>
+              </h4>
+              <p style="text-align: justify;">
+                {{ vehicle.description }}
+              </p>
+            </div>
+  
+              {% if request.user.is_authenticated %}
+              {% csrf_token %}
+                <div style="text-align: center;">
+                  <button type="submit" onclick="toggleLike(this)" class="like-vehicle {{ like_vehicle_class }}" style="align-self: center; width: 20vw" value="{{ vehicle.id }}">Like it!<i class='bx bxs-bookmark-heart'></i></button>
+                </div>
+              {% endif %}
+          </div>
+        </div>
+      
     </div>
 
     <div class="container-fluid mapped">
@@ -473,9 +474,9 @@
             <span class="devided-text" style="color:#ff6600">US</span>
           </h4>
           <div class="row d-flex flex-row justify-content-center text-center">
-            <a href="#" class="social-media-link"><i class='bx bxl-facebook-square bx-lg' style="color: white;"></i></a>
-            <a href="#" class="social-media-link"><i class='bx bxl-instagram-alt bx-lg' style="color: white;"></i></a>
-            <a href="#" class="social-media-link"><i class='bx bxl-tiktok bx-lg' style="color: white;"></i></a>
+            <a href="https://www.facebook.com/motoex2010" class="social-media-link"><i class='bx bxl-facebook-square bx-lg' style="color: white;"></i></a>
+            <a href="https://www.instagram.com/motoex2010/?igshid=NTc4MTIwNjQ2YQ%3D%3D" class="social-media-link"><i class='bx bxl-instagram-alt bx-lg' style="color: white;"></i></a>
+            <a href="https://www.tiktok.com/@motoex2010" class="social-media-link"><i class='bx bxl-tiktok bx-lg' style="color: white;"></i></a>
           </div>
         </div>
       </div>
