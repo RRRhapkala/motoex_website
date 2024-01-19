@@ -67,6 +67,9 @@ def catalog_page(request, category: str):
     return render(request, 'catalog_page.html', {'vehicles': vehicles})
 
 def add_vehicle_page(request):
+    if not user_can_add_vehicle(request.user):
+        return redirect('main')
+
     if request.method == 'POST':
         try:
             add_vehicle(request)

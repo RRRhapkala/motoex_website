@@ -27,11 +27,11 @@ def login_user(request):
     else:
         raise InvalidCridentialsException('Invalid email or password')
 
-
-def add_vehicle(request):
-    def user_can_add_vehicle(user):
+def user_can_add_vehicle(user):
         allowed_users = ['ggoutsiderr', 'a2']
         return user.username in allowed_users
+
+def add_vehicle(request):
 
     if not user_can_add_vehicle(request.user):
         raise UCantAddVehicle('Fuck off bozo')

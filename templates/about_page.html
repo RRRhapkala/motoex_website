@@ -535,9 +535,10 @@
           Array.from($(".auto-resize")).forEach(image => {
             adjustHeight(image, 16/9);
           })
+          const coordinates = [{{ vehicle.lon }}, {{ vehicle.lat }}];
           const map = new ol.Map({
             view: new ol.View({
-              center: [2339014.595662489, 6841950.467177815],
+              center: coordinates,
               zoom: 9,
               minZoom: 4,
               maxZoom: 20,
@@ -554,7 +555,7 @@
             console.log(e.coordinate);
           });
         
-          const coordinates = [2339014.595662489, 6841950.467177815]; //выбранные координаты
+            //выбранные координаты
           addIconToMap(coordinates, map, markerImagePath);
         });
       </script>

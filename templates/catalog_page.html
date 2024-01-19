@@ -218,7 +218,7 @@
     <div class="container-fluid catalog mt-4 px-5">
       <div class="row">
         {% for vehicle in vehicles %}
-        <div class="col-4 col-in-row">
+        <div class="col-lg-4 col-in-row">
           <div class="card">
             <a href="{% url 'about' vehicle.id %}" class="card-link">
               <img src="{{ vehicle.mainimage.image.url }}" alt="car-image" class="card-img">

@@ -1,9 +1,12 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'v8.2.0-package/ol.css' %}"/>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
   </script>
@@ -33,6 +36,11 @@
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
       width: 80%;
       max-width: 600px;
+    }
+
+    #js-map {
+      width: 100%;
+      height: 300px;
     }
 
     .description {
@@ -88,8 +96,13 @@
       <label for="additional_images">Other Images</label>
       <input type="file" class="input-area" required name="additional_images" accept="image/*" multiple>
       <textarea placeholder="Description" class="input-area" required name="description"></textarea>
-      <input type="number" step="0.000001" class="input-area" required name="lon" placeholder="Longitude">
-      <input type="number" step="0.000001" class="input-area" required name="lat" placeholder="Latitude">
+      <input type="number" id="in-lon" step="0.000001" class="input-area" required name="lon" placeholder="Longitude">
+      <input type="number" id="in-lat" step="0.000001" class="input-area" required name="lat" placeholder="Latitude">
+      <div class="container-fluid mapped">
+        <div class="map-frame">
+          <div id="js-map" class="map"></div>
+        </div>
+      </div>
       <select class="select-area" required name="_type">
         <option value="moto">Moto</option>
         <option value="commercial">Commercial</option>
@@ -110,5 +123,78 @@
       <input type="submit" value="Add Vehicle" class="submit add">
     </form>
   </div>
+  <script src="{% static 'map_logic.js' %}"></script>
+  <script src="{% static 'v8.2.0-package/dist/ol.js' %}"></script>
+  <script>
+    const markerImagePath = "{% static 'marker.svg' %}";
+    const view = new ol.View({
+      center: [0, 0],
+      zoom: 9,
+      minZoom: 4,
+      maxZoom: 20,
+    });
+
+    let geo = new ol.Geolocation({
+      trackingOptions: {
+        enableHighAccuracy: true,
+      },
+      projection: view.getProjection(),
+    });
+    geo.setTracking(true);
+
+    const map = new ol.Map({
+      view: view,
+      layers: [
+        new ol.layer.Tile({
+          source: new ol.source.OSM(),
+        }),
+      ],
+      target: 'js-map',
+    });
+
+    const iconStyle = new ol.style.Style({
+      image: new ol.style.Icon({
+        anchor: [0.5, 1],
+        src: markerImagePath,
+      }),
+    });
+
+    const iconFeature = new ol.Feature({
+      geometry: new ol.geom.Point([0, 0]),
+    });
+
+    iconFeature.setStyle(iconStyle);
+
+    const vectorSource = new ol.source.Vector({
+      features: [iconFeature],
+    });
+
+    const vectorLayer = new ol.layer.Vector({
+      source: vectorSource,
+    });
+
+    map.addLayer(vectorLayer);
+
+    var posSet = false;
+    geo.on('change:position', function () {
+      const coordinates = geo.getPosition();
+      let x = Math.round(document.getElementById("js-map").getBoundingClientRect().width / 2, 0);
+      let y = Math.round(document.getElementById("js-map").getBoundingClientRect().height / 2, 0);
+      if (!posSet) {
+        view.centerOn(coordinates, map.getSize(), [x, y]);
+        posSet = true;
+      }
+      // addIconToMap(coordinates, map, markerImagePath);
+    });
+    
+    addIconToMap([0, 0], map, markerImagePath);
+    map.on('click', function (e) {
+      iconFeature.getGeometry().setCoordinates(e.coordinate);
+      document.getElementById("in-lon").setAttribute("value", e.coordinate[0]);
+      document.getElementById("in-lat").setAttribute("value", e.coordinate[1]);
+    });
+      //выбранные координаты
+    
+  </script>
 </body>
 </html>
