@@ -10,7 +10,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
   </script>
-  <title>Document</title>
+  <title>Add Vehicle</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200&display=swap');
     * {
@@ -41,6 +41,7 @@
     #js-map {
       width: 100%;
       height: 300px;
+      margin-bottom: 10px;
     }
 
     .description {
@@ -90,36 +91,32 @@
     <p class="description">ADD NEW VEHICLE</p>
     <form action="" method="post" enctype="multipart/form-data">
       {% csrf_token %}
-      <input class="input-area" required name="name" placeholder="Vehicle Name">
+      <input class="input-area" required name="name" value="{{ vehicle.name }}" placeholder="Vehicle Name">
       <label for="main_image">Main Image (First)</label>
-      <input type="file" class="input-area" required name="main_image" accept="image/*">
+      <input type="file" class="input-area" {% if vehicle.name == '' %}required{% endif %} name="main_image" accept="image/*">
       <label for="additional_images">Other Images</label>
-      <input type="file" class="input-area" required name="additional_images" accept="image/*" multiple>
-      <textarea placeholder="Description" class="input-area" required name="description"></textarea>
-      <input type="number" id="in-lon" step="0.000001" class="input-area" required name="lon" placeholder="Longitude">
-      <input type="number" id="in-lat" step="0.000001" class="input-area" required name="lat" placeholder="Latitude">
+      <input type="file" class="input-area" {% if vehicle.name == '' %}required{% endif %} name="additional_images" accept="image/*" multiple>
+      <textarea placeholder="Description" class="input-area" required name="description">{{ vehicle.description }}</textarea>
+      <input type="number" id="in-lon" step="0.000001" class="input-area" required name="lon" value="{{ vehicle.lon }}" placeholder="Longitude">
+      <input type="number" id="in-lat" step="0.000001" class="input-area" required name="lat" value="{{ vehicle.lat }}" placeholder="Latitude">
       <div class="container-fluid mapped">
         <div class="map-frame">
           <div id="js-map" class="map"></div>
         </div>
       </div>
-      <select class="select-area" required name="_type">
-        <option value="moto">Moto</option>
-        <option value="commercial">Commercial</option>
-        <option value="car">Car</option>
-        <option value="spec">Spec</option>
+      <select class="select-area" required name="vtype">
+        <option {% if vehicle.vtype == "moto" %}selected=''{% endif %} value="moto">Moto</option>
+        <option {% if vehicle.vtype == "commercial" %}selected=''{% endif %} value="commercial">Commercial</option>
+        <option {% if vehicle.vtype == "car" %}selected=''{% endif %} value="car">Car</option>
+        <option {% if vehicle.vtype == "special" %}selected=''{% endif %} value="spec">Special</option>
       </select>
-      <input class="input-area" required name="engine" placeholder="Engine">
-      <input class="input-area" required name="fuel_type" placeholder="Fuel Type">
-      <input class="input-area" required name="transmission" placeholder="Transmission">
-      <input type="number" class="input-area" required name="year_of_prod" placeholder="Year of Production">
-      <input class="input-area" required name="mileage" placeholder="Mileage">
-      <input class="input-area" required name="hometown" placeholder="Hometown">
-      <input class="input-area" required name="currently_in" placeholder="Currently In">
-      <!-- Добавление поля для выбора пользователя. Убедитесь, что у вас есть список пользователей, из которого можно выбирать
-      <select class="select-area" required name="users">
-           Здесь будет код для выбора пользователей
-      </select> -->
+      <input class="input-area" required name="engine" value="{{ vehicle.engine }}" placeholder="Engine">
+      <input class="input-area" required name="fuel_type" value="{{ vehicle.fuel_type }}" placeholder="Fuel Type">
+      <input class="input-area" required name="transmission" value="{{ vehicle.transmission }}" placeholder="Transmission">
+      <input type="number" class="input-area" required name="year_of_prod" value="{{ vehicle.year_of_prod }}" placeholder="Year of Production">
+      <input class="input-area" required name="mileage" value="{{ vehicle.mileage }}" placeholder="Mileage">
+      <input class="input-area" required name="hometown" value="{{ vehicle.hometown }}" placeholder="Hometown">
+      <input class="input-area" required name="currently_in" value="{{ vehicle.currently_in }}" placeholder="Currently In">
       <input type="submit" value="Add Vehicle" class="submit add">
     </form>
   </div>
@@ -127,6 +124,11 @@
   <script src="{% static 'v8.2.0-package/dist/ol.js' %}"></script>
   <script>
     const markerImagePath = "{% static 'marker.svg' %}";
+    var coordinates = [0, 0];
+    if ('{{ vehicle.name }}' != '') {
+      coordinates = [{{ vehicle.lon }}, {{ vehicle.lat }}];
+    }
+    
     const view = new ol.View({
       center: [0, 0],
       zoom: 9,
@@ -160,7 +162,7 @@
     });
 
     const iconFeature = new ol.Feature({
-      geometry: new ol.geom.Point([0, 0]),
+      geometry: new ol.geom.Point(coordinates),
     });
 
     iconFeature.setStyle(iconStyle);
@@ -187,7 +189,6 @@
       // addIconToMap(coordinates, map, markerImagePath);
     });
     
-    addIconToMap([0, 0], map, markerImagePath);
     map.on('click', function (e) {
       iconFeature.getGeometry().setCoordinates(e.coordinate);
       document.getElementById("in-lon").setAttribute("value", e.coordinate[0]);

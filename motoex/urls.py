@@ -25,7 +25,7 @@ from andrei.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', main_page, name='main'),
-    path('about/<int:id>/', about_vehicle_page, name='about'),             #str? why not int?
+    path('about/<int:id>/', about_vehicle_page, name='about'),
     path('reviews/', reviews_page, name='reviews'),
     path('choose_vehicle_type/', choose_type_page, name='choose_vehicle'),
     path('account/', account_page, name='account'),
@@ -33,6 +33,8 @@ urlpatterns = [
     path('sign_up/', register_page, name='register'),
     path('sign_in/', login_page, name='login'),
     path('add_vehicle/', add_vehicle_page, name='add_vehicle'),
+    path('edit_vehicle/<int:vehicle_id>/', edit_vehicle_page, name='edit_vehicle'),
+    path('delete_vehicle/<int:vehicle_id>/', delete_vehicle_page, name='delete_vehicle'),
     path('toggle_like/', like_car_ajax, name='toggle_like'),
     path('', include("allauth.urls")),
     path('social/signup/', signup_redirect, name='signup_redirect'),

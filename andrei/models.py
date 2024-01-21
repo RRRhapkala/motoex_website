@@ -10,7 +10,7 @@ class Vehicle(models.Model):
     description = models.TextField(null=False)
     lon = models.FloatField()
     lat = models.FloatField()
-    _type = models.CharField(max_length=20)
+    vtype = models.CharField(max_length=20)
     engine = models.CharField(max_length=100)
     fuel_type = models.CharField(max_length=100)
     transmission = models.CharField(max_length=10)

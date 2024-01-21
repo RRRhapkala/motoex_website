@@ -31,6 +31,35 @@ def user_can_add_vehicle(user):
         allowed_users = ['ggoutsiderr', 'a2']
         return user.username in allowed_users
 
+def edit_vehicle(request, vehicle):
+    if not user_can_add_vehicle(request.user):
+        raise UCantAddVehicle('Fuck off bozo')
+    
+    if request.method == 'POST':
+        form = VehicleForm(request.POST, request.FILES, instance=vehicle)
+        if form.is_valid():
+            form.save()
+
+            if 'main_image' in request.FILES:
+                MainImage.objects.get(vehicle=vehicle).delete()
+
+                vehicle_main_image = MainImage.objects.create(
+                    image=request.FILES.get('main_image'),
+                    vehicle=vehicle
+                )
+                vehicle_main_image.save()
+
+            if 'additional_images' in request.FILES:
+                AdditionalImage.objects.filter(vehicle=vehicle).delete()
+
+                for image in request.FILES.getlist('additional_images'):
+                    vehicle_additional_image = AdditionalImage.objects.create(
+                        image=image,
+                        vehicle=vehicle
+                    )
+                    vehicle_additional_image.save()
+
+
 def add_vehicle(request):
 
     if not user_can_add_vehicle(request.user):

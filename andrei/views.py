@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.http import JsonResponse
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 
 from andrei.exceptions import *
 from andrei.models import Vehicle
@@ -63,7 +64,7 @@ def account_page(request):
     return render(request, 'account_page.html', context)
 
 def catalog_page(request, category: str):
-    vehicles = Vehicle.objects.filter(_type=category.lower())
+    vehicles = Vehicle.objects.filter(vtype=category.lower())
     return render(request, 'catalog_page.html', {'vehicles': vehicles})
 
 def add_vehicle_page(request):
@@ -78,6 +79,44 @@ def add_vehicle_page(request):
         return redirect('main')
     return render(request, 'add_vehicle_page.html', {})
 
+def edit_vehicle_page(request, vehicle_id):
+    if not user_can_add_vehicle(request.user):
+        return redirect('main')
+    
+    try:
+        vehicle = Vehicle.objects.get(id=vehicle_id)
+    except ObjectDoesNotExist as e:
+        return redirect('add_vehicle')
+
+    if request.method == 'POST':
+        try:
+            edit_vehicle(request, vehicle)
+        except UCantAddVehicle as e:
+            messages.error(request, e)
+        return redirect('main')
+    return render(request, 'add_vehicle_page.html', {'vehicle': vehicle})
+
+def delete_vehicle_page(request, vehicle_id):
+
+    if not user_can_add_vehicle(request.user):
+        return redirect('main')
+    
+    try:
+        vehicle = Vehicle.objects.get(id=vehicle_id)
+    except ObjectDoesNotExist as e:
+        return redirect('main')
+    
+    if request.method == "POST":
+        vehicle.delete()
+        return redirect('main')
+    
+    context = {
+        'vehicle_name': vehicle.name,
+        'vehicle_id': vehicle.id
+    }
+
+    return render(request, 'delete_confirm.html', context=context)
+
 def signup_redirect(request):
     messages.error(request, "Something wrong here, it may be that you already have account!")
     return redirect('main')
@@ -86,8 +125,3 @@ def like_car_ajax(request):
     if request.user.is_authenticated:
         toggle_like(request.user, Vehicle.objects.get(id=request.POST.get('vehicle_id')))
     return JsonResponse({"status": "Success"})
-
-# def toggle_like(request):
-#     return render(request)
-#
-#     # request.user for user *
